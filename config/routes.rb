@@ -8,4 +8,5 @@ Rails.application.routes.draw do
     post '/words/check', to: 'word#showdetails'
     post '/words/color', to: 'word#checkcolor' 
 
+    post '/comments/create', to: 'comment#create' 
 end 
