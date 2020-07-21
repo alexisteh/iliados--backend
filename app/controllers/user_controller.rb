@@ -19,7 +19,7 @@ class UserController <ApplicationController
         entered_user = User.find_by(username: user_params[:username])
         if entered_user
             if entered_user.authenticate(user_params[:password])  
-                render json: {message: 'LoggedIn ' + entered_user.password_digest}  
+                render json: {message: 'LoggedIn ' + entered_user.password_digest + " " + entered_user.username }  
             else 
                 render json: {message: 'Incorrect Password!'}
             end 
