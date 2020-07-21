@@ -21,8 +21,13 @@ class CommentController < ApplicationController
         end  
     end 
 
+    def delete 
+        Comment.find(comment_params[:id]).destroy 
+        render json: {message: 'destroyed'}
+    end 
+
     def comment_params 
-        params.permit(:content, :location, :userkey, :privacy) 
+        params.permit(:content, :location, :userkey, :privacy, :id) 
     end 
 
 end 

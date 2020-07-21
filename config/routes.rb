@@ -9,4 +9,6 @@ Rails.application.routes.draw do
     post '/words/color', to: 'word#checkcolor' 
 
     post '/comments/create', to: 'comment#create' 
+    delete '/comments/:id', to: 'comment#delete' 
+
 end 
