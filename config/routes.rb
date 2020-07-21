@@ -5,4 +5,7 @@ Rails.application.routes.draw do
     post '/users/new', to: 'user#create' 
     post '/users/login', to: 'user#login' 
 
+    post '/words/check', to: 'word#showdetails'
+    post '/words/color', to: 'word#checkcolor' 
+
 end 
