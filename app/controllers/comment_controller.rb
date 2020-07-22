@@ -1,6 +1,5 @@
 class CommentController < ApplicationController
 
-
     def create 
         if comment_params[:userkey] == nil 
             return render json: {error: 'Log in to annotate text'}

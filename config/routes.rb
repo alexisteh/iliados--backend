@@ -12,4 +12,6 @@ Rails.application.routes.draw do
     delete '/comments/:id', to: 'comment#delete'
     patch '/comments/:id', to: 'comment#update' 
 
+    post '/savedwords', to: 'savedword#togglesaved'
+
 end 

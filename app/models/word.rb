@@ -3,4 +3,6 @@ class Word < ApplicationRecord
     validates :location, presence: true
     validates :location, uniqueness: true
     # validates :content, presence: true 
+
+    has_many :savedwords 
 end

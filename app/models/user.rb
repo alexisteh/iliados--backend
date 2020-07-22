@@ -5,4 +5,5 @@ class User < ApplicationRecord
     validates :password, presence: true 
 
     has_many :comments 
+    has_many :savedwords 
 end 
