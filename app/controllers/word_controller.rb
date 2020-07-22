@@ -21,7 +21,7 @@ class WordController < ApplicationController
 
     def showdetails
         location = word_params[:location]
-        comments = Comment.select{|comment| comment.word.location == location && ( comment.public == true || comment.user.password_digest == word_params[:userkey])} 
+        comments = Comment.select{|comment| comment.word.location == location && ( comment.public == true || comment.user.password_digest == word_params[:userkey])}.sort_by(&:created_at).reverse 
         render json: comments, only: [:content, :id], include: [:user]
     end 
 
