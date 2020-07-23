@@ -13,5 +13,6 @@ Rails.application.routes.draw do
     patch '/comments/:id', to: 'comment#update' 
 
     post '/savedwords', to: 'savedword#togglesaved'
+    post '/savedwords/show', to: 'savedword#show'
 
 end 
