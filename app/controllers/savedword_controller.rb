@@ -24,7 +24,15 @@ class SavedwordController < ApplicationController
     def show 
         target_user = User.find_by(password_digest: savedword_params[:userkey]) 
         savedwords = Savedword.select{|savedword| savedword.user_id == target_user.id} 
-        render json: savedwords, include: [:user, :word]  
+        if savedword_params[:order] == 'newestfirst' 
+            render json: savedwords.sort_by{|savedword| savedword.created_at}.reverse, include: [:user, :word]
+        elsif savedword_params[:order] == 'oldestfirst' 
+            render json: savedwords.sort_by{|savedword| savedword.created_at}, include: [:user, :word]
+        elsif savedword_params[:order] == 'firstbook' 
+            render json: savedwords.sort_by{|savedword| savedword.word.location}, include: [:user, :word] 
+        elsif savedword_params[:order] == 'lastbook' 
+            render json: savedwords.sort_by{|savedword| savedword.word.location}.reverse, include: [:user, :word] 
+        end 
     end 
 
     def privannotations
@@ -35,7 +43,7 @@ class SavedwordController < ApplicationController
     end 
 
     def savedword_params 
-        params.permit(:userkey, :location, :content) 
+        params.permit(:userkey, :location, :content, :order)  
     end 
 
 end 
