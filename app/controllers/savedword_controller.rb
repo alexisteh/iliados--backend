@@ -27,6 +27,13 @@ class SavedwordController < ApplicationController
         render json: savedwords, include: [:user, :word]  
     end 
 
+    def privannotations
+        target_user = User.find_by(password_digest: savedword_params[:userkey]) 
+        target_word = Word.find_by(location: savedword_params[:location]) 
+        priv_comments = target_word.comments.select{|comment| comment.user_id == target_user.id} 
+        render json: priv_comments, include: [:word] 
+    end 
+
     def savedword_params 
         params.permit(:userkey, :location, :content) 
     end 

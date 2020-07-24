@@ -5,6 +5,9 @@ class CommentController < ApplicationController
             return render json: {error: 'Log in to annotate text'}
         end 
         tagged_word = Word.find_or_create_by(location: comment_params[:location])
+        tagged_word.update(content: comment_params[:word_content])
+        tagged_word.save 
+        
         tagged_user = User.find_by(password_digest: comment_params[:userkey])
         if comment_params[:privacy] == "Public"
             public_set = true 
@@ -43,7 +46,7 @@ class CommentController < ApplicationController
     end 
 
     def comment_params 
-        params.permit(:content, :location, :userkey, :privacy, :id) 
+        params.permit(:content, :location, :userkey, :privacy, :id, :word_content) 
     end 
 
 end 

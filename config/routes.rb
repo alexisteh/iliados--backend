@@ -14,5 +14,6 @@ Rails.application.routes.draw do
 
     post '/savedwords', to: 'savedword#togglesaved'
     post '/savedwords/show', to: 'savedword#show'
+    post '/savedwords/privannotations', to: 'savedword#privannotations'
 
 end 
