@@ -7,7 +7,7 @@ class CommentController < ApplicationController
         tagged_word = Word.find_or_create_by(location: comment_params[:location])
         tagged_word.update(content: comment_params[:word_content])
         tagged_word.save 
-        
+
         tagged_user = User.find_by(password_digest: comment_params[:userkey])
         if comment_params[:privacy] == "Public"
             public_set = true 
@@ -45,8 +45,16 @@ class CommentController < ApplicationController
         render json: {message: 'destroyed'}
     end 
 
+    def user 
+        tagged_user = User.find_by(password_digest: comment_params[:userkey])
+        comments = Comment.select{|comment| comment.user_id == tagged_user.id} 
+        if comment_params[:type] == 'timeadded'
+            render json: comments.sort_by(&:created_at) , only: [:content, :id], include: [:word]
+        end 
+    end 
+
     def comment_params 
-        params.permit(:content, :location, :userkey, :privacy, :id, :word_content) 
+        params.permit(:content, :location, :userkey, :privacy, :id, :word_content, :type) 
     end 
 
 end 
