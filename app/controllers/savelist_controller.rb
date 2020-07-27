@@ -8,7 +8,7 @@ class SavelistController <ApplicationController
         render json: lists, only: [:name, :id] 
     end 
 
-    def showone
+    def showone 
         target_user = User.find_by(password_digest: savelist_params[:userkey]) 
         target_list = Savelist.find(savelist_params[:savelist_id]) 
         if target_list.user_id == target_user.id 
@@ -19,7 +19,15 @@ class SavelistController <ApplicationController
         end 
     end 
 
+    def new 
+        target_user = User.find_by(password_digest: savelist_params[:userkey]) 
+        if (savelist_params[:name] != "") && target_user 
+            new_savelist = Savelist.create(name: savelist_params[:name], user_id: target_user.id) 
+            render json: new_savelist 
+        end 
+    end 
+
     def savelist_params 
-        params.permit(:userkey, :savelist_id)  
+        params.permit(:userkey, :savelist_id, :name)   
     end 
 end 
