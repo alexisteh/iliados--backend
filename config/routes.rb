@@ -18,4 +18,8 @@ Rails.application.routes.draw do
     post '/savedwords/show', to: 'savedword#show'
     post '/savedwords/privannotations', to: 'savedword#privannotations'
 
+    post '/savelists/check', to: 'savelist#check'
+
+    post '/listwords', to: 'listword#create' 
+
 end 
