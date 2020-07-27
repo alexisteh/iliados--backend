@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     post '/savelists/check', to: 'savelist#check' 
     post '/savelists/showone', to: 'savelist#showone' 
     post '/newsavelist', to: 'savelist#new' 
+    delete '/savelists/:id', to: 'savelist#delete' 
 
     post '/listwords', to: 'listword#create' 
     post '/listwords/remove', to: 'listword#remove'

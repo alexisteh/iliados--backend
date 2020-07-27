@@ -27,7 +27,13 @@ class SavelistController <ApplicationController
         end 
     end 
 
+    def delete 
+        target_savelist = Savelist.find(savelist_params[:id])
+        target_savelist.destroy 
+        render json: {message: 'Successfully deleted'}  
+    end 
+
     def savelist_params 
-        params.permit(:userkey, :savelist_id, :name)   
+        params.permit(:userkey, :savelist_id, :name, :id)   
     end 
 end 
