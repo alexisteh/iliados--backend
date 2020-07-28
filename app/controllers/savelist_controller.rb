@@ -9,11 +9,18 @@ class SavelistController <ApplicationController
     end 
 
     def showone 
+        # debugger 
         target_user = User.find_by(password_digest: savelist_params[:userkey]) 
         target_list = Savelist.find(savelist_params[:savelist_id]) 
         if target_list.user_id == target_user.id 
-            words = target_list.listwords.sort_by{|listword| listword.created_at}.reverse.map{|listword| listword.savedword.word} 
-            render json: words 
+            words = target_list.listwords.sort_by{|listword| listword.created_at}.reverse.map{|listword| listword.savedword ? listword.savedword.word : nil } 
+            final_words = [] 
+            words.each do |word|  
+                if word 
+                    final_words << word 
+                end 
+            end 
+            render json: final_words  
         else 
             return render json: {message: 'User Not Allowed'}
         end 

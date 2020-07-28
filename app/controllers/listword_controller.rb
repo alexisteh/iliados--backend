@@ -1,7 +1,8 @@
 class ListwordController <ApplicationController
 
     def create 
-        if Listword.select{|listword| listword.savedword_id == listword_params[:savedword_id] && listword.savelist_id == listword_params[:savelist_id] }.length >= 1
+        # debugger 
+        if Listword.select{|listword| listword.savedword_id == listword_params[:savedword_id].to_i && listword.savelist_id == listword_params[:savelist_id].to_i }.length >= 1
             return render json: {message: 'Saved Word Already In List'}
         else 
             new_listword = Listword.create(savedword_id: listword_params[:savedword_id], savelist_id: listword_params[:savelist_id])

@@ -5,7 +5,8 @@ class SavedwordController < ApplicationController
             return render json: {error: "You Are Not Logged In"} 
         end 
         target_savedword = Savedword.select{|savedword| (savedword.word.location == savedword_params[:location]) && savedword.user.password_digest == savedword_params[:userkey]}[0]
-        if target_savedword
+        if target_savedword 
+            target_savedword.listwords.destroy_all 
             target_savedword.destroy 
             render json: {message: 'Successfully deleted'}
         else 
